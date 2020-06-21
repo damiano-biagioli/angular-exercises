@@ -1,0 +1,42 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Rivendita di libri online</span>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+        <div *ngIf="message == 'none'"><button (click)="goToLogin()" mat-menu-item>Login</button></div>
+      <div *ngIf="message != 'none'">
+      <button (click)="logout()" mat-menu-item>Logout</button>
+      <button mat-menu-item (click)="goToCarrello()">Carrello</button>
+      </div>
+      <!-- si potrebbbe anche fare cosi -->
+      <!-- <a routerLink="/home" routerLinkActive="active">Elenco Libri</a> -->
+      <button (click)="home()" mat-menu-item>Elenco Libri disponibili</button>
+    </mat-menu>
+    <span class="example-spacer"></span>
+    <span>utente Loggato ? </span>
+    <span class="example-spacer"></span>
+    <div *ngIf="message != 'none'">
+      <!-- {{message}}-->
+      <mat-icon
+        class="example-icon"
+        aria-hidden="false"
+        aria-label="Example user verified icon"
+        >verified_user</mat-icon
+      >
+    </div>
+    <div *ngIf="message == 'none'">
+      <!-- {{message}}-->
+      <mat-icon
+        class="example-icon"
+        aria-hidden="false"
+        aria-label="Example user not verified "
+        >warning</mat-icon
+      >
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
