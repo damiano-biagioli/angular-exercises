@@ -20,6 +20,16 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
+// karma.conf.js
+restartOnFileChange: true,
+restartOnFileChange: true,
+customLaunchers: {
+  ChromeHeadlessCustom: {
+    base: 'ChromeHeadless',
+    flags: ['--no-sandbox', '--disable-gpu']
+  }
+},
+// end changes
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
