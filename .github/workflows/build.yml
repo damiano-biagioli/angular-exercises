@@ -17,9 +17,9 @@ jobs:
       - name: Node $
         uses: actions/setup-node@v1
         with:
-          node-version: $
+          node-version: 12.18.2
 
       - name: npm install and npm run build
         run: |
-          npm ci
+          cd bookApp && npm ci
           npm run build:ci
