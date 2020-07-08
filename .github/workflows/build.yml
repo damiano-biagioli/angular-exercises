@@ -22,4 +22,4 @@ jobs:
       - name: npm install and npm run build
         run: |
           cd bookApp && npm ci
-          cd bookApp && npm run build:ci
+          npm run build:ci
