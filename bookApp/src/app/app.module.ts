@@ -13,6 +13,8 @@ import { StandardComponent } from './standard/standard.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarrelloComponent } from './carrello/carrello.component';
+import { BookSampleDialogComponent } from './book-sample-dialog/book-sample-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,13 +22,14 @@ import { CarrelloComponent } from './carrello/carrello.component';
     BookListComponent,
     StandardComponent,
     NavigationComponent,
-    CarrelloComponent
+    CarrelloComponent,
+    BookSampleDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,ReactiveFormsModule, BrowserAnimationsModule
-    ,DemoMaterialModule, NgbModule
+    ,DemoMaterialModule, NgbModule,MatDialogModule
 
   ],
   providers: [{
@@ -34,6 +37,9 @@ import { CarrelloComponent } from './carrello/carrello.component';
     useClass: AuthInterceptor,
     multi: true
 }],
+entryComponents: [
+  BookSampleDialogComponent
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

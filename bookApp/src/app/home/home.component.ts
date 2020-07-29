@@ -1,3 +1,6 @@
+import { BookSample } from './../model/bookSample';
+import { BookSampleDialogComponent } from './../book-sample-dialog/book-sample-dialog.component';
+import { LibroService } from './../libro.service';
 import { CarrelloService } from './../carrello.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpResponse, HttpClient } from '@angular/common/http';
@@ -6,6 +9,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Libro } from '../model/libro';
 import { Recensione } from '../model/recensione';
 //import { resolve } from 'dns';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 /*
 export interface Libro {
   idLibro: number;
@@ -47,7 +52,8 @@ private masterToggle() {
     this.dataSource.forEach(row => this.selection.select(row));
 }
 
-constructor(private http: HttpClient, private auth: AuthService,private carrService:CarrelloService) { }
+constructor(private http: HttpClient, private auth: AuthService,
+  private carrService:CarrelloService,public dialog: MatDialog,public  libroservice: LibroService) { }
 message = 'none';
 ngOnInit() {
 
@@ -105,5 +111,25 @@ console.log(this.inCarrello);
 displayCartButton(b:Libro) {
   console.log("aaaa22");
  return this.inCarrello.indexOf(b)<0 && this.message!='none';
+}
+
+
+viewSample(b:Libro): void {
+
+  this.libroservice.getSamplesByBook(b.idLibro).subscribe(resp => {
+    console.log(resp);
+    let emptySample : BookSample = {id: 'abc',
+    idBook:-1,
+    sample: 'dati non presenti'};
+      const dialogRef = this.dialog.open(BookSampleDialogComponent, {
+        width: '250px',
+        data: resp[0]!=undefined? resp[0] :emptySample
+      });
+
+      dialogRef.afterClosed().subscribe(result => { 
+        console.log('The dialog was closed');
+        //this.animal = result;
+      });
+  })
 }
 }

@@ -1,0 +1,10 @@
+<ng-container *ngIf="data.idBook>=0">
+<h4><i>Riassunto : </i> {{data.recap}}</h4>
+<hr/>
+{{data.sample}}
+</ng-container>
+<ng-container *ngIf="data.idBook==-1">
+    <p>Non sono presenti estratti per questo libro</p>
+</ng-container>
+<hr/>
+<button mat-button mat-dialog-close>Chiudi</button>

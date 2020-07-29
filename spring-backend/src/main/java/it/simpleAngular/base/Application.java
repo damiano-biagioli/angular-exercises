@@ -4,11 +4,13 @@ import it.simpleAngular.base.dao.AuthorityRepository;
 import it.simpleAngular.base.dao.LibroRepository;
 import it.simpleAngular.base.dao.MetodoPagamentoRepository;
 import it.simpleAngular.base.dao.UserRepository;
+import it.simpleAngular.base.dao.mongo.BookSampleRepository;
 import it.simpleAngular.base.model.Authority;
 import it.simpleAngular.base.model.AuthorityName;
 import it.simpleAngular.base.model.Libro;
 import it.simpleAngular.base.model.MetodoPagamento;
 import it.simpleAngular.base.model.User;
+import it.simpleAngular.base.model.mongo.BookSample;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @EnableJpaRepositories
 @SpringBootApplication
@@ -36,7 +39,7 @@ public class Application {
 	PasswordEncoder passwordEncoder;
 
 	@Bean
-	public CommandLineRunner loadData(UserRepository userRepository,
+	public CommandLineRunner loadData(UserRepository userRepository,BookSampleRepository sampleRepository,
 			LibroRepository libroRepository,MetodoPagamentoRepository metodoRepository, AuthorityRepository authorityRepository) {
 		return (args) -> {
 
@@ -92,8 +95,17 @@ public class Application {
 				
 				metodoRepository.save(carta);
 				metodoRepository.save(contrassegno);
+			
 				
 			}
+			List<BookSample> test1= sampleRepository.findByRecap("recap");
+			if(test1==null||test1.isEmpty()) {
+			BookSample estratto1= new BookSample("recap","this is an excerpt from the book");
+			// un libro c'e sempre li abbiamo inseriti prima
+			estratto1.setIdBook(libroRepository.findAll().get(0).getIdLibro());
+			sampleRepository.save(estratto1); 
+			}
+			
 		};
 	}
 
