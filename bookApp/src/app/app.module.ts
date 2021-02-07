@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarrelloComponent } from './carrello/carrello.component';
 import { BookSampleDialogComponent } from './book-sample-dialog/book-sample-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { BookDetailComponent } from './book-detail/book-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     StandardComponent,
     NavigationComponent,
     CarrelloComponent,
-    BookSampleDialogComponent
+    BookSampleDialogComponent,
+    BookDetailComponent
   ],
   imports: [
     BrowserModule,

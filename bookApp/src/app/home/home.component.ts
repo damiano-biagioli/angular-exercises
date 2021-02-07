@@ -11,6 +11,7 @@ import { Recensione } from '../model/recensione';
 //import { resolve } from 'dns';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { BookDetailComponent } from '../book-detail/book-detail.component';
 /*
 export interface Libro {
   idLibro: number;
@@ -96,10 +97,22 @@ todo() {
 }
 viewDetails(b:Libro) {
   this.http.get<Recensione[]>('http://127.0.0.1:8080/public/libro/'+b.idLibro).subscribe(data => {
-    
+    let emptySample : Recensione = {  
+       idRecensione :-1,
+      testo:'empty review',
+      libro:b,
+      user:{username:"no_user",password:"pass"}};
     
     console.log(data);
+    const dialogRef = this.dialog.open(BookDetailComponent, {
+      width: '700px',
+      data: data[0]!=undefined? data :[emptySample]
+    });
 
+    dialogRef.afterClosed().subscribe(result => { 
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
 
 
   });
@@ -122,7 +135,7 @@ viewSample(b:Libro): void {
     idBook:-1,
     sample: 'dati non presenti'};
       const dialogRef = this.dialog.open(BookSampleDialogComponent, {
-        width: '250px',
+        width: '550px',
         data: resp[0]!=undefined? resp[0] :emptySample
       });
 
